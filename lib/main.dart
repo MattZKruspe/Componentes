@@ -16,12 +16,12 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
         '/': (BuildContext context) => const HomePageTemp(),
-        'alert' : (BuildContext context) => const AlertScreen(),
+        'alert' : (BuildContext context) => const AlertsScreen(),
       },
       onGenerateRoute: (RouteSettings settings){
         print('Ruta llamada: ${settings.name}');
         return MaterialPageRoute(
-          builder: (BuildContext context) => const AlertScreen());
+          builder: (BuildContext context) => const AlertsScreen());
       },
     );
   }
