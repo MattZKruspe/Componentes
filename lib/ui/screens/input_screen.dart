@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class InputsScreen extends StatefulWidget {
   const InputsScreen({super.key});
@@ -12,7 +13,7 @@ class _InputsScreenState extends State<InputsScreen> {
   String _password = '';
   String _email = '';
   String _fecha = '';
-  final TextEditingController _inputFielDataController =
+  final TextEditingController _inputFieldDateController =
       TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class _InputsScreenState extends State<InputsScreen> {
         color: Colors.black45,
         fontWeight: FontWeight.bold,
       ),
-      cursorColor: Color.fromARGB(255, 8, 49, 162),
+      cursorColor: const Color.fromARGB(255, 8, 49, 162),
       cursorRadius: const Radius.circular(9.0),
       cursorWidth: 3.0,
       //maxLength: 4,
@@ -54,7 +55,7 @@ class _InputsScreenState extends State<InputsScreen> {
         hintText: "Pon aquí tu nombre",
         labelText: "Nombre:",
         // icono normal icon: Icon(Icons.person_4),
-        prefixIcon: Icon(Icons.person),
+        prefixIcon: const Icon(Icons.person),
         // prefix: const CircularProgressIndicotor(),
         //iconColor: Color.fromARGB(255, 8, 49, 162)
       ),
@@ -72,7 +73,7 @@ class _InputsScreenState extends State<InputsScreen> {
         color: Colors.black45,
         fontWeight: FontWeight.bold,
       ),
-      cursorColor: Color.fromARGB(255, 8, 49, 162),
+      cursorColor:const  Color.fromARGB(255, 8, 49, 162),
       cursorRadius: const Radius.circular(9.0),
       cursorWidth: 3.0,
       maxLength: 8,
@@ -83,7 +84,7 @@ class _InputsScreenState extends State<InputsScreen> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
         hintText: "Escribe tu contraseña",
         labelText: "Contraseña:",
-        prefixIcon: Icon(Icons.key_outlined),
+        prefixIcon: const Icon(Icons.key_outlined),
         //suffixIcon: const Icon(Icons.key)
       ),
       onChanged: (valor) {
@@ -100,7 +101,7 @@ class _InputsScreenState extends State<InputsScreen> {
         color: Colors.black45,
         fontWeight: FontWeight.bold,
       ),
-      cursorColor: Color.fromARGB(255, 8, 49, 162),
+      cursorColor: const Color.fromARGB(255, 8, 49, 162),
       cursorRadius: const Radius.circular(9.0),
       cursorWidth: 3.0,
       keyboardType: TextInputType.number,
@@ -109,7 +110,7 @@ class _InputsScreenState extends State<InputsScreen> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
         hintText: "Escribe tu email",
         labelText: "E-mail:",
-        prefixIcon: Icon(Icons.mail_rounded),
+        prefixIcon: const Icon(Icons.mail_rounded),
         //suffixIcon: const Icon(Icons.key)
       ),
       onChanged: (valor) {
@@ -121,13 +122,14 @@ class _InputsScreenState extends State<InputsScreen> {
 
   Widget _crearEntradaFecha() {
     return TextField(
+      controller:_inputFieldDateController,
       enableInteractiveSelection: false,
       textAlign: TextAlign.left,
       style: const TextStyle(
         color: Colors.black45,
         fontWeight: FontWeight.bold,
       ),
-      cursorColor: Color.fromARGB(255, 8, 49, 162),
+      cursorColor: const  Color.fromARGB(255, 8, 49, 162),
       cursorRadius: const Radius.circular(9.0),
       cursorWidth: 3.0,
       textCapitalization: TextCapitalization.words,
@@ -135,7 +137,7 @@ class _InputsScreenState extends State<InputsScreen> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
         hintText: "Escribe tu fecha de nacimiento",
         labelText: "Fecha de nacimiento:",
-        prefixIcon: Icon(Icons.calendar_month_rounded),
+        prefixIcon: const Icon(Icons.calendar_month_rounded),
         //suffixIcon: const Icon(Icons.key)
       ),
       onTap: () {
@@ -155,8 +157,27 @@ class _InputsScreenState extends State<InputsScreen> {
     if (picked != null) {
       setState(() {
         _fecha = picked.toString();
-        _inputFielDataController.text = _fecha;
+        print(_fecha);
+        _fecha = DateFormat('dd-MM-yyyy').format(picked);
+        _inputFieldDateController.text = _fecha;//Esta linea muestra la fecha en el TexField
       });
     }
+  }
+    Widget _crearDropDown(){
+    return DropdownButton(
+      items: const [],
+      onChanged:(opt) {});
+  }
+
+  List<DropdownMenuItem<String>> getOptionsDropDown() {
+    List<String> _lenguajes = ['Java', 'PHP', 'JavaScript', 'Dart'];
+    List<DropdownMenuItem<String>> lista = List();
+    _lenguajes.forEach((lenguaje) {
+      lista.add(DropdownMenuItem(
+        child: Text(lenguaje),
+        value: lenguaje,
+      ));
+    });
+    return lista;
   }
 }
